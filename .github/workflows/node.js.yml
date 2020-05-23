@@ -26,3 +26,6 @@ jobs:
       - run: npm install
       - run: npm run test -- --coverage --watchAll=false
       - run: npm run build
+      - run: docker build . --file Dockerfile --tag docker.pkg.github.com/bazinga-wang/my-react-app/my-react-app
+      - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - run: docker push docker.pkg.github.com/bazinga-wang/my-react-app/my-react-app
